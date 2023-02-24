@@ -11,14 +11,23 @@ class DyePack extends engine.GameObject {
     this.mCreationTime = performance.now();
     this.mIsAlive = true;
     this.mSlowDownMode = false;
+    this.kWidth = 2;
+    this.kHeight = 3.25;
+    this.kXPos = 100;
+    this.kYPos = 50;
 
     this.mRenderComponent = new engine.SpriteRenderable(
       "assets/SpriteSheet.png"
     );
     this.mRenderComponent.setColor([1, 1, 1, 0.1]);
-    this.mRenderComponent.getXform().setPosition(30, 27.5);
-    this.mRenderComponent.getXform().setSize(2, 3.25);
+    this.mRenderComponent.getXform().setPosition(this.kXPos, this.kYPos);
+    this.mRenderComponent.getXform().setSize(this.kWidth, this.kHeight);
     this.mRenderComponent.setElementPixelPositions(510, 595, 23, 153);
+
+    this.mWidthOscillate = new engine.Oscillate(4, 20, 300);
+    this.mHeightOscillate = new engine.Oscillate(0.2, 20, 300);
+
+    this.mIsOscillating = false;
   }
 
   update(aCamera) {
@@ -28,13 +37,35 @@ class DyePack extends engine.GameObject {
         return;
       }
 
-      this.getXform().incXPosBy(this.mSpeed);
+      if (!this.mIsOscillating) {
+        this.getXform().incXPosBy(this.mSpeed);
+        this.kXPos = this.getXform().getXPos();
+        this.kYPos = this.getXform().getYPos();
+      }
 
       if (this.getXform().getXPos() > aCamera.getWCWidth()) {
         this.mIsAlive = false;
       }
       if (this.mSlowDownMode) {
         this.slowDown();
+      }
+
+      if (engine.input.isKeyClicked(engine.input.keys.S)) {
+        this.mIsOscillating = true;
+        this.mWidthOscillate.reStart();
+        this.mHeightOscillate.reStart();
+      }
+
+      if (this.mIsOscillating) {
+        this.getXform().setPosition(
+          this.kXPos + this.mWidthOscillate.getNext(),
+          this.kYPos + this.mHeightOscillate.getNext()
+        );
+
+        if (this.mWidthOscillate.done()) {
+          this.misOscillating = false;
+          this.mIsAlive = false;
+        }
       }
     }
   }
