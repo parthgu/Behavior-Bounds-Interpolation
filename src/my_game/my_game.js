@@ -24,7 +24,7 @@ class MyGame extends engine.Scene {
   init() {
     // Step A: set up the cameras
     this.mCamera = new engine.Camera(
-      vec2.fromValues(100, 50), // position of the camera
+      vec2.fromValues(100, 75), // position of the camera
       200, // width of camera
       [0, 0, 800, 600] // viewport (orgX, orgY, width, height)
     );
@@ -32,10 +32,11 @@ class MyGame extends engine.Scene {
     // sets the background to gray
 
     this.mHero = new Hero(this.kSpriteSheet);
+    this.mHero.getXform().setPosition(100, 75);
 
     this.mBg = new engine.TextureRenderable(this.kBg);
     this.mBg.getXform().setSize(200, 150);
-    this.mBg.getXform().setPosition(100, 50);
+    this.mBg.getXform().setPosition(100, 75);
 
     this.mDyePackSet = new DyePackSet();
     this.mDyePackSet.addToSet(new DyePack());
@@ -68,7 +69,7 @@ class MyGame extends engine.Scene {
   // The Update function, updates the application state. Make sure to _NOT_ draw
   // anything from this function!
   update() {
-    this.mHero.update();
+    this.mHero.update(this.mCamera);
     this.mDyePackSet.update(this.mCamera);
   }
 }
