@@ -3,6 +3,9 @@
 import engine from "../engine/index.js";
 import Hero from "./objects/hero.js";
 
+import DyePack from "./objects/dye_pack.js";
+import DyePackSet from "./objects/dye_pack_set.js";
+
 class MyGame extends engine.Scene {
   constructor() {
     super();
@@ -11,6 +14,8 @@ class MyGame extends engine.Scene {
 
     // The camera to view the scene
     this.mCamera = null;
+    
+    this.mBg = null;
     this.mHero = null;
   }
 
@@ -33,6 +38,20 @@ class MyGame extends engine.Scene {
     // sets the background to gray
 
     this.mHero = new Hero(this.kSpriteSheet);
+
+    this.mBg = new engine.TextureRenderable(this.kBg);
+    this.mBg.getXform().setSize(300, 150);
+    this.mBg.getXform().setPosition(30, 27.5);
+  }
+
+  load() {
+    engine.texture.load(this.kBg);
+    engine.texture.load(this.kSpriteSheet);
+  }
+
+  unload() {
+    engine.texture.unload(this.kBg);
+    engine.texture.unload(this.kSpriteSheet);
   }
 
   // This is the draw function, make sure to setup proper drawing environment, and more
@@ -43,6 +62,7 @@ class MyGame extends engine.Scene {
 
     this.mCamera.setViewAndCameraMatrix();
 
+    this.mBg.draw(this.mCamera);
     this.mHero.draw(this.mCamera);
   }
 
