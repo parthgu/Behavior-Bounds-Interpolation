@@ -36,8 +36,7 @@ class Hero extends engine.GameObject {
                 this.kWidth + this.mWidthOscillate.getNext(),
                 this.kHeight + this.mHeightOscillate.getNext()
             );
-
-            this.misOscillating = this.mWidthOscillate.done();
+            this.mIsOscillating = !this.mWidthOscillate.done();
         }
 
         // position interpolation
