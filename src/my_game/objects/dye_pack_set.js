@@ -9,10 +9,12 @@ class DyePackSet extends GameObjectSet {
     super();
   }
 
-  update(aCamera) {
+  update(aCamera, hero) {
     if (engine.input.isKeyClicked(engine.input.keys.Space)) {
       let newDyePack = new DyePack();
-      newDyePack.getXform().setPosition(aCamera.mouseWCX(), aCamera.mouseWCY());
+      newDyePack
+        .getXform()
+        .setPosition(hero.getXform().getXPos(), hero.getXform().getYPos());
       this.addToSet(newDyePack);
     }
 

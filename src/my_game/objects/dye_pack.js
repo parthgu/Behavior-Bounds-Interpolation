@@ -1,5 +1,6 @@
 "use strict"; // Operate in Strict mode such that variables must be declared before used!
 
+import GameObject from "../../engine/game_objects/game_object.js";
 import engine from "../../engine/index.js";
 
 class DyePack extends engine.GameObject {
