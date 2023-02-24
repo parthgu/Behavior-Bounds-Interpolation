@@ -16,6 +16,7 @@ class MyGame extends engine.Scene {
     this.mCamera = null;
     this.mBg = null;
     this.mHero = null;
+    this.mDyePackSet = null;
   }
 
   init() {
@@ -35,6 +36,9 @@ class MyGame extends engine.Scene {
     this.mHero = new Hero(this.kMinionSprite);
     this.mHero.getXform().setSize(9, 12);
     this.mHero.getXform().setPosition(30, 27.5);
+
+    this.mDyePackSet = new DyePackSet();
+    this.mDyePackSet.addToSet(new DyePack());
   }
 
   load() {
@@ -58,12 +62,15 @@ class MyGame extends engine.Scene {
     this.mBg.draw(this.mCamera);
 
     this.mHero.draw(this.mCamera);
+
+    this.mDyePackSet.draw(this.mCamera);
   }
 
   // The Update function, updates the application state. Make sure to _NOT_ draw
   // anything from this function!
   update() {
     this.mHero.update();
+    this.mDyePackSet.update(this.mCamera);
   }
 }
 
