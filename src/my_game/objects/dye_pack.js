@@ -50,7 +50,7 @@ class DyePack extends engine.GameObject {
         this.slowDown();
       }
 
-      if (engine.input.isKeyClicked(engine.input.keys.L)) {
+      if (engine.input.isKeyClicked(engine.input.keys.S)) {
         this.mIsOscillating = true;
         this.mWidthOscillate.reStart();
         this.mHeightOscillate.reStart();
