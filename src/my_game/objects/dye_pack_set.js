@@ -25,7 +25,6 @@ class DyePackSet extends GameObjectSet {
     for (i = 0; i < this.mSet.length; i++) {
       if (!this.mSet[i].isAlive()) {
         this.removeFromSet(this.mSet[i]);
-        console.log("removed " + i);
         continue;
       }
 
