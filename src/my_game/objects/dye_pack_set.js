@@ -25,12 +25,11 @@ class DyePackSet extends GameObjectSet {
     for (i = 0; i < this.mSet.length; i++) {
       if (!this.mSet[i].isAlive()) {
         this.removeFromSet(this.mSet[i]);
-        console.log("removed " + i);
         continue;
       }
 
       this.mSet[i].setSlowMode(slowMode);
-      this.mSet[i].update();
+      this.mSet[i].update(aCamera);
     }
   }
 }

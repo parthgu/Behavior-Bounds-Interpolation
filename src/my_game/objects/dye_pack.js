@@ -21,7 +21,7 @@ class DyePack extends engine.GameObject {
     this.mRenderComponent.setElementPixelPositions(510, 595, 23, 153);
   }
 
-  update() {
+  update(aCamera) {
     if (this.mIsAlive) {
       if (performance.now() - this.mCreationTime >= 5000) {
         this.mIsAlive = false;
@@ -30,7 +30,7 @@ class DyePack extends engine.GameObject {
 
       this.getXform().incXPosBy(this.mSpeed);
 
-      if (this.getXform().getXPos() > 130) {
+      if (this.getXform().getXPos() > aCamera.getWCWidth()) {
         this.mIsAlive = false;
       }
       if (this.mSlowDownMode) {
