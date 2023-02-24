@@ -10,6 +10,7 @@ class DyePack extends engine.GameObject {
     this.mLifeSpan = 0;
     this.mCreationTime = performance.now();
     this.mIsAlive = true;
+    this.mSlowDownMode = false;
 
     this.mRenderComponent = new engine.SpriteRenderable(
       "assets/SpriteSheet.png"
@@ -21,10 +22,20 @@ class DyePack extends engine.GameObject {
   }
 
   update() {
-    this.getXform().incXPosBy(this.mSpeed);
-    if (performance.now() - this.mCreationTime >= 5000) this.mIsAlive = false;
-    if (this.getXform().getXPos() > 130) {
-      this.mIsAlive = false;
+    if (this.mIsAlive) {
+      if (performance.now() - this.mCreationTime >= 5000) {
+        this.mIsAlive = false;
+        return;
+      }
+
+      this.getXform().incXPosBy(this.mSpeed);
+
+      if (this.getXform().getXPos() > 130) {
+        this.mIsAlive = false;
+      }
+      if (this.mSlowDownMode) {
+        this.slowDown();
+      }
     }
   }
 
@@ -43,6 +54,10 @@ class DyePack extends engine.GameObject {
 
   isAlive() {
     return this.mIsAlive;
+  }
+
+  setSlowMode(val) {
+    this.mSlowDownMode = val;
   }
 }
 

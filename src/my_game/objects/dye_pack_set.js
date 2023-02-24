@@ -16,14 +16,21 @@ class DyePackSet extends GameObjectSet {
       this.addToSet(newDyePack);
     }
 
+    let slowMode = false;
+    if (engine.input.isKeyPressed(engine.input.keys.D)) {
+      slowMode = true;
+    }
+
     let i;
     for (i = 0; i < this.mSet.length; i++) {
-      this.mSet[i].update();
-
       if (!this.mSet[i].isAlive()) {
         this.removeFromSet(this.mSet[i]);
         console.log("removed " + i);
+        continue;
       }
+
+      this.mSet[i].setSlowMode(slowMode);
+      this.mSet[i].update();
     }
   }
 }
