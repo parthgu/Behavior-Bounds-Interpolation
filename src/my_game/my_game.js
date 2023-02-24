@@ -4,7 +4,6 @@ import engine from "../engine/index.js";
 import Hero from "./objects/hero.js";
 import DyePack from "./objects/dye_pack.js";
 import DyePackSet from "./objects/dye_pack_set.js";
-import Renderable from "../engine/renderables/renderable.js";
 
 class MyGame extends engine.Scene {
   constructor() {
