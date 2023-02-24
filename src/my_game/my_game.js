@@ -6,6 +6,9 @@ import Hero from "./objects/hero.js";
 import DyePack from "./objects/dye_pack.js";
 import DyePackSet from "./objects/dye_pack_set.js";
 
+import Patrol from "./objects/patrol.js";
+import PatrolSet from "./objects/patrol_set.js";
+
 class MyGame extends engine.Scene {
   constructor() {
     super();
@@ -19,6 +22,7 @@ class MyGame extends engine.Scene {
     this.mBg = null;
     this.mHero = null;
     this.mDyePackSet = null;
+    this.mPatrolSet = null;
   }
 
   init() {
@@ -38,7 +42,8 @@ class MyGame extends engine.Scene {
     this.mBg.getXform().setPosition(100, 50);
 
     this.mDyePackSet = new DyePackSet();
-    this.mDyePackSet.addToSet(new DyePack());
+    this.mPatrolSet = new PatrolSet();
+    this.mPatrolSet.addToSet(new Patrol());
   }
 
   load() {
@@ -63,13 +68,14 @@ class MyGame extends engine.Scene {
     this.mHero.draw(this.mCamera);
 
     this.mDyePackSet.draw(this.mCamera);
+    this.mPatrolSet.draw(this.mCamera);
   }
 
   // The Update function, updates the application state. Make sure to _NOT_ draw
   // anything from this function!
   update() {
     this.mHero.update();
-    this.mDyePackSet.update(this.mCamera);
+    this.mDyePackSet.update(this.mCamera, this.mHero);
   }
 }
 
