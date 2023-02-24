@@ -75,7 +75,6 @@ class MyGame extends engine.Scene {
   // The Update function, updates the application state. Make sure to _NOT_ draw
   // anything from this function!
   update() {
-    this.mHero.update();
     this.mDyePackSet.update(this.mCamera, this.mHero);
 
     this.mHero.update(this.mCamera);
