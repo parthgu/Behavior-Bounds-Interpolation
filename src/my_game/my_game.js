@@ -76,9 +76,7 @@ class MyGame extends engine.Scene {
   // anything from this function!
   update() {
     this.mDyePackSet.update(this.mCamera, this.mHero);
-
     this.mHero.update(this.mCamera);
-    this.mDyePackSet.update(this.mCamera);
   }
 }
 
