@@ -34,8 +34,8 @@ class MyGame extends engine.Scene {
     this.mHero = new Hero(this.kSpriteSheet);
 
     this.mBg = new engine.TextureRenderable(this.kBg);
-    this.mBg.getXform().setSize(300, 150);
-    this.mBg.getXform().setPosition(30, 27.5);
+    this.mBg.getXform().setSize(200, 150);
+    this.mBg.getXform().setPosition(100, 50);
 
     this.mDyePackSet = new DyePackSet();
     this.mDyePackSet.addToSet(new DyePack());
