@@ -30,7 +30,7 @@ class DyePackSet extends GameObjectSet {
       }
 
       this.mSet[i].setSlowMode(slowMode);
-      this.mSet[i].update();
+      this.mSet[i].update(aCamera);
     }
   }
 }
