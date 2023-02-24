@@ -12,7 +12,7 @@ class DyePack extends engine.GameObject {
     this.mIsAlive = true;
 
     this.mRenderComponent = new engine.SpriteRenderable(
-      "assets/SpriteSheet.png "
+      "assets/SpriteSheet.png"
     );
     this.mRenderComponent.setColor([1, 1, 1, 0.1]);
     this.mRenderComponent.getXform().setPosition(30, 27.5);
