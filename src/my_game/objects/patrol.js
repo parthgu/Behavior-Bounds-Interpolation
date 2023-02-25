@@ -29,6 +29,10 @@ class Patrol extends engine.GameObject {
     this.mTopWing.draw(camera);
     this.mBottomWing.draw(camera);
   }
+
+  onHitEvent() {
+    this.mHead.getXform().incXPosBy(5);
+  }
 }
 
 export default Patrol;
