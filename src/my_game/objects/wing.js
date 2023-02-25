@@ -18,7 +18,7 @@ class Wing extends engine.GameObject {
         this.mPosLerp = null;
     }
 
-    update(headObj = null) {
+    update(headPos, headOffset) {
         this.mRenderComponent.updateAnimation();
         
         let transform = this.getXform();
@@ -27,8 +27,11 @@ class Wing extends engine.GameObject {
                 transform.getPosition(), 120, 0.05
             );
         }
-
-        this.mPosLerp.setFinal(headObj.getXform().getPosition());
+        
+        this.mPosLerp.setFinal([
+            headPos[0] + headOffset[0],
+            headPos[1] + headOffset[1]
+        ]);
         this.mPosLerp.update();
 
         transform.setPosition(

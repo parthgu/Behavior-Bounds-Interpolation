@@ -93,7 +93,9 @@ class MyGame extends engine.Scene {
     this.mHero.update(this.mCamera);
     
     this.mHead.update();
-    this.mWing.update(this.mHead);
+    this.mWing.update(
+      this.mHead.getXform().getPosition(), [10, 6]
+    );
   }
 }
 
