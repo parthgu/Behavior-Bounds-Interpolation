@@ -25,15 +25,15 @@ class Head extends engine.GameObject {
       "assets/SpriteSheet.png"
     );
     this.mRenderComponent.setColor([1, 1, 1, 0]);
-    this.mRenderComponent.getXform().setPosition(this.kXPos, this.kYPos);
+    // this.mRenderComponent.getXform().setPosition(this.kXPos, this.kYPos);
     this.mRenderComponent.getXform().setSize(this.kWidth, this.kHeight);
     this.mRenderComponent.setElementPixelPositions(130, 310, 0, 180);
   }
 
   update() {
-    this.kXPos += this.mXSpeed;
-    this.kYPos += this.mYSpeed;
-    this.mRenderComponent.getXform().setPosition(this.kXPos, this.kYPos);
+    // this.kXPos += this.mXSpeed;
+    // this.kYPos += this.mYSpeed;
+    // this.mRenderComponent.getXform().setPosition(this.kXPos, this.kYPos);
   }
 
   getSpeed() {
@@ -43,10 +43,6 @@ class Head extends engine.GameObject {
   setSpeed(delta) {
     this.mSpeed = delta;
   }
-
-  getXform() {
-    return this.mRenderComponent.getXform();
-  }
 }
 
-export default DyePack;
+export default Head;
