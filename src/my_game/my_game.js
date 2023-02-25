@@ -23,6 +23,9 @@ class MyGame extends engine.Scene {
 
     this.mDyePackSet = null;
     this.mPatrolSet = null;
+
+    this.isAutoSpawning = false;
+    this.nextSpawnTime = null;
   }
 
   init() {
@@ -44,7 +47,7 @@ class MyGame extends engine.Scene {
 
     this.mDyePackSet = new DyePackSet();
     this.mPatrolSet = new PatrolSet();
-    this.mPatrolSet.addToSet(new Patrol(this.kSpriteSheet, 150, 75));
+    // this.mPatrolSet.addToSet(new Patrol(this.kSpriteSheet, 150, 75));
   }
 
   load() {
@@ -79,6 +82,43 @@ class MyGame extends engine.Scene {
     this.mHero.update(this.mCamera);
     
     this.mPatrolSet.update(this.mCamera);
+
+    // auto spawning
+    if (engine.input.isKeyClicked(engine.input.keys.P)) {
+      this.isAutoSpawning = !this.isAutoSpawning;
+
+      if (this.isAutoSpawning) {
+        this.spawnPatrol();
+        this.setNextSpawnTime();
+      }
+    }
+
+    if (this.isAutoSpawning &&
+        performance.now() >= this.nextSpawnTime) {
+        
+        this.spawnPatrol();
+        this.setNextSpawnTime();
+    }
+  }
+
+  spawnPatrol() {
+    let spawnX =
+      this.mCamera.getWCCenter()[0] + 
+      Math.random() * this.mCamera.getWCWidth() / 2;
+    
+    let spawnY =
+      this.mCamera.getWCCenter()[1] + 
+      (Math.random() - 0.5) * this.mCamera.getWCHeight() / 2;
+    
+    this.mPatrolSet.addToSet(
+      new Patrol(this.kSpriteSheet, spawnX, spawnY)
+    );
+
+    console.log(this.mCamera.getWCCenter());
+  }
+
+  setNextSpawnTime() {
+    this.nextSpawnTime = performance.now() + ((Math.random() + 2) * 1000);
   }
 }
 
