@@ -1,37 +1,34 @@
 "use strict"; // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../../engine/index.js";
+import Head from "./head.js";
+import Wing from "./wing.js";
 
 class Patrol extends engine.GameObject {
-  constructor() {
+  constructor(spriteSheet, x, y) {
     super(null);
-    this.kHeadXPos = 100;
-    this.kHeadYPos = 50;
-    this.mXSpeed = this.mRenderComponent = new engine.SpriteRenderable(
-      "assets/SpriteSheet.png"
-    );
-    this.mUpperWing = new engine.SpriteAnimateRenderable(
-      "assets/SpriteSheet.png"
-    );
-    this.mLowerWing = new engine.SpriteAnimateRenderable(
-      "assets/SpriteSheet.png"
-    );
 
-    this.mHeadBoundingBox = new engine.BoundingBox(
-      [this.kHeadXPos, this.kHeadYPos],
-      7.5,
-      7.5
-    );
-
-    this.mRenderComponent.setColor([1, 1, 1, 0]);
-    this.mRenderComponent
-      .getXform()
-      .setPosition(this.kHeadXPos, this.kHeadYPos);
-    this.mRenderComponent.getXform().setSize(7.5, 7.5);
-    this.mRenderComponent.setElementPixelPositions(130, 310, 0, 180);
+    this.mHead = new Head(spriteSheet);
+    this.mHead.getXform().setPosition(x, y);
+    this.mTopWing = new Wing(spriteSheet);
+    this.mTopWing.getXform().setPosition(x, y);
+    this.mBottomWing = new Wing(spriteSheet);
+    this.mBottomWing.getXform().setPosition(x, y);
   }
 
-  update(aCamera) {}
+  update(aCamera) {
+    this.mHead.update();
+    let headPos = this.mHead.getXform().getPosition();
+
+    this.mTopWing.update(headPos, [10, 6]);
+    this.mBottomWing.update(headPos, [10, -6]);
+  }
+
+  draw(camera) {
+    this.mHead.draw(camera);
+    this.mTopWing.draw(camera);
+    this.mBottomWing.draw(camera);
+  }
 }
 
 export default Patrol;

@@ -9,7 +9,11 @@ class PatrolSet extends GameObjectSet {
     super();
   }
 
-  update() {}
+  update(camera) {
+    this.mSet.forEach(gameObj => 
+      gameObj.update(camera)
+    );
+  }
 }
 
 export default PatrolSet;

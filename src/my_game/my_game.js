@@ -2,10 +2,7 @@
 
 import engine from "../engine/index.js";
 import Hero from "./objects/hero.js";
-import Wing from "./objects/wing.js";
-import Head from "./objects/head.js";
 
-import DyePack from "./objects/dye_pack.js";
 import DyePackSet from "./objects/dye_pack_set.js";
 
 import Patrol from "./objects/patrol.js";
@@ -23,9 +20,6 @@ class MyGame extends engine.Scene {
 
     this.mBg = null;
     this.mHero = null;
-    
-    this.mHead = null;
-    this.mWing = null;
 
     this.mDyePackSet = null;
     this.mPatrolSet = null;
@@ -44,19 +38,13 @@ class MyGame extends engine.Scene {
     this.mHero = new Hero(this.kSpriteSheet);
     this.mHero.getXform().setPosition(100, 75);
 
-    this.mWing = new Wing(this.kSpriteSheet);
-    this.mWing.getXform().setPosition(150, 75);
-
-    this.mHead = new Head(this.kSpriteSheet);
-    this.mHead.getXform().setPosition(175, 75);
-
     this.mBg = new engine.TextureRenderable(this.kBg);
     this.mBg.getXform().setSize(200, 150);
     this.mBg.getXform().setPosition(100, 75);
 
     this.mDyePackSet = new DyePackSet();
     this.mPatrolSet = new PatrolSet();
-    this.mPatrolSet.addToSet(new Patrol());
+    this.mPatrolSet.addToSet(new Patrol(this.kSpriteSheet, 150, 75));
   }
 
   load() {
@@ -79,11 +67,9 @@ class MyGame extends engine.Scene {
 
     this.mBg.draw(this.mCamera);
     this.mHero.draw(this.mCamera);
-    this.mWing.draw(this.mCamera);
-    this.mHead.draw(this.mCamera);
 
-    // this.mDyePackSet.draw(this.mCamera);
-    // this.mPatrolSet.draw(this.mCamera);
+    this.mDyePackSet.draw(this.mCamera);
+    this.mPatrolSet.draw(this.mCamera);
   }
 
   // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -92,10 +78,7 @@ class MyGame extends engine.Scene {
     this.mDyePackSet.update(this.mCamera, this.mHero);
     this.mHero.update(this.mCamera);
     
-    this.mHead.update();
-    this.mWing.update(
-      this.mHead.getXform().getPosition(), [10, 6]
-    );
+    this.mPatrolSet.update(this.mCamera);
   }
 }
 

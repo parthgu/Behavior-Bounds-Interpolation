@@ -7,7 +7,7 @@ const kMinSpeed = 5;
 const kMaxSpeed = 10;
 
 class Head extends engine.GameObject {
-  constructor() {
+  constructor(spriteSheet) {
     super(null);
 
     this.setSpeed(
@@ -21,9 +21,7 @@ class Head extends engine.GameObject {
     this.kWidth = 7.5;
     this.kHeight = 7.5;
 
-    this.mRenderComponent = new engine.SpriteRenderable(
-      "assets/SpriteSheet.png"
-    );
+    this.mRenderComponent = new engine.SpriteRenderable(spriteSheet);
     this.mRenderComponent.setColor([1, 1, 1, 0]);
     this.mRenderComponent.getXform().setSize(this.kWidth, this.kHeight);
     this.mRenderComponent.setElementPixelPositions(130, 310, 0, 180);
