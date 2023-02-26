@@ -10,13 +10,10 @@ class Head extends engine.GameObject {
   constructor(spriteSheet) {
     super(null);
 
-    this.setSpeed(
-      (kMinSpeed + (Math.random() * (kMaxSpeed - kMinSpeed))) / 60
+    this.setSpeed((kMinSpeed + Math.random() * (kMaxSpeed - kMinSpeed)) / 60);
+    this.setCurrentFrontDir(
+      vec2.fromValues(Math.random() - 0.5, Math.random() - 0.5)
     );
-    this.setCurrentFrontDir(vec2.fromValues(
-      Math.random() - 0.5,
-      Math.random() - 0.5
-    ));
 
     this.kWidth = 7.5;
     this.kHeight = 7.5;

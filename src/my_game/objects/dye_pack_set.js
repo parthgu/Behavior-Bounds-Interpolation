@@ -9,7 +9,7 @@ class DyePackSet extends GameObjectSet {
     super();
   }
 
-  update(aCamera, hero) {
+  update(aCamera, hero, patrolSet) {
     if (engine.input.isKeyClicked(engine.input.keys.Space)) {
       let newDyePack = new DyePack();
       newDyePack
@@ -24,12 +24,36 @@ class DyePackSet extends GameObjectSet {
     }
 
     let i;
+
     for (i = 0; i < this.mSet.length; i++) {
       if (!this.mSet[i].isAlive()) {
         this.removeFromSet(this.mSet[i]);
         continue;
       }
-
+      let h = [];
+      let t = [];
+      let b = [];
+      for (let j = 0; j < patrolSet.size(); j++) {
+        if (
+          this.mSet[i]
+            .getBBox()
+            .intersectsBound(patrolSet.getObjectAt(j).getBBox())
+        ) {
+          slowMode = true;
+          if (this.mSet[i].pixelTouches(patrolSet.getObjectAt(j).mHead, h)) {
+            patrolSet.getObjectAt(j).onHitEvent();
+            this.mSet[i].mIsOscillating = true;
+          } else if (
+            this.mSet[i].pixelTouches(patrolSet.getObjectAt(j).mTopWing, t)
+          ) {
+            this.mSet[i].mIsOscillating = true;
+          } else if (
+            this.mSet[i].pixelTouches(patrolSet.getObjectAt(j).mBottomWing, b)
+          ) {
+            this.mSet[i].mIsOscillating = true;
+          }
+        }
+      }
       this.mSet[i].setSlowMode(slowMode);
       this.mSet[i].update(aCamera);
     }

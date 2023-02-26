@@ -64,7 +64,7 @@ class DyePack extends engine.GameObject {
         );
 
         if (this.mWidthOscillate.done()) {
-          this.misOscillating = false;
+          this.mIsOscillating = false;
           this.mIsAlive = false;
         }
       }
