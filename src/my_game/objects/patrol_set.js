@@ -10,10 +10,15 @@ class PatrolSet extends GameObjectSet {
   }
 
   update(camera) {
+    this.mSet.forEach((gameObj) => {
+      if (!gameObj.isAlive()) {
+        this.removeFromSet(gameObj);
+      }
+    });
     if (engine.input.isKeyClicked(engine.input.keys.J))
-      this.mSet.forEach(gameObj => gameObj.onHitEvent());
+      this.mSet.forEach((gameObj) => gameObj.onHitEvent());
 
-    this.mSet.forEach(gameObj => gameObj.update(camera));
+    this.mSet.forEach((gameObj) => gameObj.update(camera));
   }
 }
 

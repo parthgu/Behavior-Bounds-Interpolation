@@ -12,13 +12,19 @@ class Patrol extends engine.GameObject {
     this.mHead.getXform().setPosition(x, y);
     this.mTopWing = new Wing(spriteSheet);
     this.mTopWing.getXform().setPosition(x, y);
+    this.mTopWing.getRenderable().setColor([1, 1, 1, 0]);
     this.mBottomWing = new Wing(spriteSheet);
     this.mBottomWing.getXform().setPosition(x, y);
+    this.mBottomWing.getRenderable().setColor([1, 1, 1, 0]);
 
     this.mWidth = null;
     this.mHeight = null;
     this.mXPos = null;
     this.myPos = null;
+
+    this.mIsAlive = true;
+    this.mTopWingHits = 0;
+    this.mBottomWingHits = 0;
   }
 
   update(aCamera) {
@@ -69,6 +75,14 @@ class Patrol extends engine.GameObject {
       default:
         break;
     }
+
+    if (
+      this.mRenderComponent.getXform().getXPos() -
+        this.mRenderComponent.getXform().getWidth() / 2 >=
+      aCamera.getWCCenter()[0] + aCamera.getWCWidth() / 2
+    ) {
+      this.mIsAlive = false;
+    }
   }
 
   draw(camera) {
@@ -80,6 +94,24 @@ class Patrol extends engine.GameObject {
 
   onHitEvent() {
     this.mHead.getXform().incXPosBy(5);
+  }
+
+  topWingHitEvent() {
+    this.mTopWingHits++;
+    this.mTopWing.getRenderable().setColor([1, 1, 1, this.mTopWingHits / 5]);
+    if (this.mTopWingHits / 5 >= 1) {
+      this.mIsAlive = false;
+    }
+  }
+
+  bottomWingHitEvent() {
+    this.mBottomWingHits++;
+    this.mBottomWing
+      .getRenderable()
+      .setColor([1, 1, 1, this.mBottomWingHits / 5]);
+    if (this.mBottomWingHits / 5 >= 1) {
+      this.mIsAlive = false;
+    }
   }
 
   updateDimentions() {
@@ -95,6 +127,10 @@ class Patrol extends engine.GameObject {
     this.getXform().setYPos(this.mYPos);
     this.getXform().setWidth(this.mWidth);
     this.getXform().setHeight(this.mHeight);
+  }
+
+  isAlive() {
+    return this.mIsAlive;
   }
 }
 
