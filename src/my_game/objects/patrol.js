@@ -86,7 +86,7 @@ class Patrol extends engine.GameObject {
   }
 
   draw(camera) {
-    this.mRenderComponent.draw(camera);
+    // this.mRenderComponent.draw(camera);
     this.mHead.draw(camera);
     this.mTopWing.draw(camera);
     this.mBottomWing.draw(camera);
