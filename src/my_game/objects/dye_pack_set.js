@@ -18,9 +18,10 @@ class DyePackSet extends GameObjectSet {
       this.addToSet(newDyePack);
     }
 
-    let slowMode = false;
+    this.mSet.forEach((gameObj) => gameObj.setSlowMode(false));
+
     if (engine.input.isKeyPressed(engine.input.keys.D)) {
-      slowMode = true;
+      this.mSet.forEach((gameObj) => gameObj.setSlowMode(true));
     }
 
     let i;
@@ -39,22 +40,28 @@ class DyePackSet extends GameObjectSet {
             .getBBox()
             .intersectsBound(patrolSet.getObjectAt(j).getBBox())
         ) {
-          slowMode = true;
           if (this.mSet[i].pixelTouches(patrolSet.getObjectAt(j).mHead, h)) {
-            patrolSet.getObjectAt(j).onHitEvent();
+            if (!this.mSet[i].mIsOscillating)
+              patrolSet.getObjectAt(j).onHitEvent();
             this.mSet[i].mIsOscillating = true;
           } else if (
             this.mSet[i].pixelTouches(patrolSet.getObjectAt(j).mTopWing, t)
           ) {
+            if (!this.mSet[i].mIsOscillating)
+              patrolSet.getObjectAt(j).topWingHitEvent();
             this.mSet[i].mIsOscillating = true;
           } else if (
             this.mSet[i].pixelTouches(patrolSet.getObjectAt(j).mBottomWing, b)
           ) {
+            if (!this.mSet[i].mIsOscillating)
+              patrolSet.getObjectAt(j).bottomWingHitEvent();
             this.mSet[i].mIsOscillating = true;
+          } else {
+            this.mSet[i].setSlowMode(true);
           }
         }
       }
-      this.mSet[i].setSlowMode(slowMode);
+
       this.mSet[i].update(aCamera);
     }
   }
