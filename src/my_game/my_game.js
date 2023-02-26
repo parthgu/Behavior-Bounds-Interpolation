@@ -71,15 +71,14 @@ class MyGame extends engine.Scene {
     this.mBg.draw(this.mCamera);
     this.mHero.draw(this.mCamera);
 
-    this.mDyePackSet.draw(this.mCamera);
     this.mPatrolSet.draw(this.mCamera);
+    this.mDyePackSet.draw(this.mCamera);
   }
 
   // The Update function, updates the application state. Make sure to _NOT_ draw
   // anything from this function!
   update() {
-    if (engine.input.isKeyClicked(engine.input.keys.C))
-      this.spawnPatrol();
+    if (engine.input.isKeyClicked(engine.input.keys.C)) this.spawnPatrol();
 
     // auto spawning
     if (engine.input.isKeyClicked(engine.input.keys.P)) {
@@ -91,37 +90,33 @@ class MyGame extends engine.Scene {
       }
     }
 
-    if (this.isAutoSpawning &&
-        performance.now() >= this.nextSpawnTime) {
-        
-        this.spawnPatrol();
-        this.setNextSpawnTime();
+    if (this.isAutoSpawning && performance.now() >= this.nextSpawnTime) {
+      this.spawnPatrol();
+      this.setNextSpawnTime();
     }
 
     // update objects
-    this.mDyePackSet.update(this.mCamera, this.mHero);
+    this.mDyePackSet.update(this.mCamera, this.mHero, this.mPatrolSet);
     this.mHero.update(this.mCamera);
     this.mPatrolSet.update(this.mCamera);
   }
 
   spawnPatrol() {
     let spawnX =
-      this.mCamera.getWCCenter()[0] + 
-      Math.random() * this.mCamera.getWCWidth() / 2;
-    
+      this.mCamera.getWCCenter()[0] +
+      (Math.random() * this.mCamera.getWCWidth()) / 2;
+
     let spawnY =
-      this.mCamera.getWCCenter()[1] + 
-      (Math.random() - 0.5) * this.mCamera.getWCHeight() / 2;
-    
-    this.mPatrolSet.addToSet(
-      new Patrol(this.kSpriteSheet, spawnX, spawnY)
-    );
+      this.mCamera.getWCCenter()[1] +
+      ((Math.random() - 0.5) * this.mCamera.getWCHeight()) / 2;
+
+    this.mPatrolSet.addToSet(new Patrol(this.kSpriteSheet, spawnX, spawnY));
 
     console.log(this.mCamera.getWCCenter());
   }
 
   setNextSpawnTime() {
-    this.nextSpawnTime = performance.now() + ((Math.random() + 2) * 1000);
+    this.nextSpawnTime = performance.now() + (Math.random() + 2) * 1000;
   }
 }
 
