@@ -74,10 +74,10 @@ class MyGame extends engine.Scene {
     this.mCamera.setViewAndCameraMatrix();
 
     this.mBg.draw(this.mCamera);
-    this.mHero.draw(this.mCamera);
 
     this.mPatrolSet.draw(this.mCamera);
     this.mDyePackSet.draw(this.mCamera);
+    this.mHero.draw(this.mCamera);
     this.mMsg.draw(this.mCamera);
   }
 
