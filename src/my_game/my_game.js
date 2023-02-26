@@ -48,6 +48,11 @@ class MyGame extends engine.Scene {
     this.mDyePackSet = new DyePackSet();
     this.mPatrolSet = new PatrolSet();
     // this.mPatrolSet.addToSet(new Patrol(this.kSpriteSheet, 150, 75));
+
+    this.mMsg = new engine.FontRenderable("Status:");
+    this.mMsg.setColor([1, 1, 1, 1]);
+    this.mMsg.getXform().setPosition(5, 5);
+    this.mMsg.setTextHeight(4);
   }
 
   load() {
@@ -73,6 +78,7 @@ class MyGame extends engine.Scene {
 
     this.mPatrolSet.draw(this.mCamera);
     this.mDyePackSet.draw(this.mCamera);
+    this.mMsg.draw(this.mCamera);
   }
 
   // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -97,8 +103,17 @@ class MyGame extends engine.Scene {
 
     // update objects
     this.mDyePackSet.update(this.mCamera, this.mHero, this.mPatrolSet);
-    this.mHero.update(this.mCamera);
     this.mPatrolSet.update(this.mCamera);
+    this.mHero.update(this.mCamera, this.mPatrolSet);
+    this.mMsg.setText(
+      "Status: DyePacks(" +
+        this.mDyePackSet.size() +
+        ") Patrols(" +
+        this.mPatrolSet.size() +
+        ") AutoSpawn(" +
+        this.isAutoSpawning +
+        ")"
+    );
   }
 
   spawnPatrol() {
